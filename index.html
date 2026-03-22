@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Transmission — Dossier de Pré-production · IA Jam 2026</title>
+  <style>
+    :root {
+      --bg: #0c0c0f;
+      --bg2: #13131a;
+      --bg3: #1a1a24;
+      --border: #2a2a3a;
+      --accent: #c9a96e;
+      --accent2: #e8c99a;
+      --text: #d4d4e0;
+      --text-dim: #7a7a95;
+      --text-bright: #f0f0f8;
+      --sasha: #7eb8d4;
+      --diego: #d47e9a;
+      --rene: #7ed4a6;
+      --paloma: #c9a96e;
+      --code-bg: #0a0a10;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(12,12,15,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      height: 56px;
+      gap: 0;
+    }
+
+    .nav-brand {
+      font-family: 'Georgia', serif;
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin-right: 2rem;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      overflow-x: auto;
+      flex: 1;
+      scrollbar-width: none;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+
+    .nav-links a {
+      display: block;
+      padding: 0 1rem;
+      height: 56px;
+      line-height: 56px;
+      font-family: 'Georgia', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text-dim);
+      white-space: nowrap;
+      transition: color 0.2s, border-bottom 0.2s;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links a:hover { color: var(--text-bright); border-bottom-color: var(--accent); }
+    .nav-links a.sasha { color: var(--sasha); }
+    .nav-links a.diego { color: var(--diego); }
+    .nav-links a.rene  { color: var(--rene); }
+    .nav-links a.paloma { color: var(--paloma); }
+
+    .nav-updated {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      white-space: nowrap;
+      margin-left: 1.5rem;
+      font-family: monospace;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 120px 2rem 80px;
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-tag {
+      font-family: monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: normal;
+      color: var(--text-bright);
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent2);
+    }
+
+    .hero-synopsis {
+      font-size: 1.1rem;
+      color: var(--text);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      text-align: center;
+    }
+
+    .meta-label {
+      font-family: monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .meta-value {
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    /* PHASE BAR */
+    .phase-bar {
+      max-width: 860px;
+      margin: 0 auto 3rem;
+      padding: 0 2rem;
+    }
+
+    .phase-track {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .phase-step {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      font-family: monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .phase-step:last-child { border-right: none; }
+
+    .phase-step.done {
+      color: var(--rene);
+      background: rgba(126, 212, 166, 0.05);
+    }
+
+    .phase-step.done::after {
+      content: " ✓";
+      color: var(--rene);
+    }
+
+    .phase-step.current {
+      color: var(--accent2);
+      background: rgba(201, 169, 110, 0.1);
+      font-weight: bold;
+    }
+
+    /* CONTENT SECTIONS */
+    .content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .section {
+      margin-bottom: 5rem;
+      scroll-margin-top: 72px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-tag {
+      font-family: monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .tag-sasha { background: rgba(126,184,212,0.15); color: var(--sasha); }
+    .tag-diego { background: rgba(212,126,154,0.15); color: var(--diego); }
+    .tag-rene  { background: rgba(126,212,166,0.15); color: var(--rene); }
+    .tag-paloma { background: rgba(201,169,110,0.15); color: var(--paloma); }
+    .tag-equipe { background: rgba(150,150,200,0.12); color: #aaaacc; }
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: normal;
+      color: var(--text-bright);
+      letter-spacing: 0.02em;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: normal;
+      color: var(--accent2);
+      letter-spacing: 0.05em;
+      margin: 2rem 0 0.75rem;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    h4 {
+      font-size: 0.95rem;
+      color: var(--text-bright);
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    strong { color: var(--text-bright); }
+
+    em { color: var(--accent2); font-style: italic; }
+
+    /* CARDS */
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-family: monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.75rem;
+    }
+
+    /* SEQUENCE CARDS */
+    .seq-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .seq-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .seq-num {
+      font-family: monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      background: var(--bg3);
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .seq-title-main {
+      font-size: 1rem;
+      color: var(--text-bright);
+    }
+
+    .seq-timing {
+      margin-left: auto;
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    /* PLAN ITEMS */
+    .plan-list {
+      list-style: none;
+      margin: 1rem 0;
+    }
+
+    .plan-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(42,42,58,0.6);
+      align-items: start;
+    }
+    .plan-item:last-child { border-bottom: none; }
+
+    .plan-num {
+      font-family: monospace;
+      font-size: 0.65rem;
+      color: var(--accent);
+      background: rgba(201,169,110,0.1);
+      padding: 0.15rem 0.4rem;
+      border-radius: 2px;
+      white-space: nowrap;
+      margin-top: 0.15rem;
+    }
+
+    .plan-content { }
+    .plan-timing {
+      font-family: monospace;
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      margin-bottom: 0.25rem;
+    }
+    .plan-desc { font-size: 0.9rem; color: var(--text); }
+    .plan-tech {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-top: 0.25rem;
+    }
+
+    /* PROMPTS */
+    .prompt-block {
+      margin-bottom: 2rem;
+    }
+
+    .prompt-variants {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .prompt-variant {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .prompt-variant-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .variant-label {
+      font-family: monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .variant-badge {
+      font-family: monospace;
+      font-size: 0.6rem;
+      padding: 0.1rem 0.4rem;
+      background: rgba(201,169,110,0.15);
+      color: var(--accent);
+      border-radius: 2px;
+    }
+
+    .copy-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      font-family: monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .copy-btn.copied { border-color: var(--rene); color: var(--rene); }
+
+    code, .prompt-text {
+      display: block;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: #c8d3f5;
+      padding: 1rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* PALETTE */
+    .palette {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+
+    .swatch {
+      width: 56px;
+      height: 56px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .swatch-label {
+      font-family: monospace;
+      font-size: 0.6rem;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: 0.3rem;
+      max-width: 56px;
+      line-height: 1.2;
+    }
+
+    .swatch-wrap { text-align: center; }
+
+    /* AXES */
+    .axes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .axis-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+    }
+
+    .axis-num {
+      font-family: monospace;
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      margin-bottom: 0.25rem;
+    }
+
+    .axis-name {
+      font-size: 0.85rem;
+      color: var(--diego);
+      margin-bottom: 0.4rem;
+    }
+
+    .axis-desc {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* REFS */
+    .refs-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.75rem 0;
+    }
+
+    .ref-tag {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.78rem;
+      color: var(--text);
+    }
+
+    /* FAISABILITE */
+    .feasibility-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .feas-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+    }
+
+    .feas-check {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .feas-label {
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+
+    /* VALIDATIONS TABLE */
+    .val-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .val-table th {
+      text-align: left;
+      padding: 0.5rem 1rem;
+      font-family: monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg3);
+    }
+
+    .val-table td {
+      padding: 0.6rem 1rem;
+      color: var(--text);
+      border-bottom: 1px solid rgba(42,42,58,0.5);
+    }
+
+    .val-table tr:last-child td { border-bottom: none; }
+
+    .val-ok { color: var(--rene); }
+    .val-pending { color: var(--text-dim); font-style: italic; }
+
+    /* OUTILS */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+
+    .tool-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+    }
+
+    .tool-name {
+      font-size: 0.85rem;
+      color: var(--text-bright);
+      margin-bottom: 0.25rem;
+    }
+
+    .tool-usage {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    /* ALERT */
+    .alert {
+      background: rgba(201,169,110,0.08);
+      border: 1px solid rgba(201,169,110,0.3);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      font-size: 0.88rem;
+    }
+
+    .alert strong { color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .feasibility-grid { grid-template-columns: 1fr; }
+      .nav-updated { display: none; }
+      h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#top">La Transmission</a>
+  <ul class="nav-links">
+    <li><a href="#synopsis">Synopsis</a></li>
+    <li><a href="#scenario" class="sasha">Scénario</a></li>
+    <li><a href="#decoupage" class="sasha">Découpage</a></li>
+    <li><a href="#da" class="diego">Direction Art.</a></li>
+    <li><a href="#prompts" class="diego">Prompts MJ</a></li>
+    <li><a href="#realisation" class="rene">Réalisation</a></li>
+    <li><a href="#production" class="paloma">Production</a></li>
+    <li><a href="#validations">Validations</a></li>
+  </ul>
+  <span class="nav-updated">Mis à jour : 22 mars 2026</span>
+</nav>
+
+<!-- HERO -->
+<div id="top" class="hero">
+  <p class="hero-tag">IA Jam 2026 · Dossier de Pré-production</p>
+  <h1><em>La Transmission</em></h1>
+  <p class="hero-synopsis">
+    Une main touche un visage. À ce contact, des milliers de villes, de visages, de galaxies explosent depuis les yeux du TÉMOIN — en cascade, à la vitesse de la pensée. La mémoire est contagieuse. Le geste s'écarte. Il reste les traces.
+  </p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Durée</span>
+      <span class="meta-value">45 secondes</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Format</span>
+      <span class="meta-value">16:9 · Grain 16mm</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">JAM</span>
+      <span class="meta-value">4–6 avril 2026</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Émotion</span>
+      <span class="meta-value">Énergie · Transmission</span>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE BAR -->
+<div class="phase-bar">
+  <div class="phase-track">
+    <div class="phase-step done">Brainstorm</div>
+    <div class="phase-step done">Scénario</div>
+    <div class="phase-step done">Review</div>
+    <div class="phase-step done">Direction Art.</div>
+    <div class="phase-step current">Production</div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- SYNOPSIS -->
+  <section id="synopsis" class="section">
+    <div class="section-header">
+      <span class="section-tag tag-equipe">Projet</span>
+      <h2>Synopsis & Concept</h2>
+    </div>
+
+    <div class="card">
+      <p class="card-title">Concept central</p>
+      <p>
+        <strong>Le TÉMOIN</strong> — visage androgyne, yeux clairs, peau gris perle. Stable et reconnaissable dans les 3 séquences malgré les transformations qui l'entourent. C'est le fil de consistance du film.
+      </p>
+      <p>
+        Une main s'approche. Dès le contact : l'œil <strong>explose en 6 fenêtres simultanées</strong> — chaque fenêtre est une ville, une galaxie, un paysage. Les villes défilent en cascade, à la vitesse de la pensée. Les veines du Témoin s'illuminent. Énergie explosive, charge électrique du geste.
+      </p>
+      <p style="margin-bottom:0">
+        Le doigt s'écarte. Il reste les traces : des motifs lumineux gravés <em>sous la peau</em>, comme des veines de lumière qui pulsent. La transmission est complète.
+      </p>
+    </div>
+
+    <div class="alert">
+      <strong>Contrainte absolue :</strong> PAS de tristesse, PAS de mélancolie. Énergie explosive, vertige du contact. "On lâche, c'est une JAM, faut envoyer du lourd." — Mathieu
+    </div>
+  </section>
+
+  <!-- SCENARIO -->
+  <section id="scenario" class="section">
+    <div class="section-header">
+      <span class="section-tag tag-sasha">Sasha · Scénariste</span>
+      <h2>Scénario</h2>
+    </div>
+
+    <div class="seq-card" style="border-left-color: var(--sasha)">
+      <div class="seq-header">
+        <span class="seq-num">SEQ 1</span>
+        <span class="seq-title-main">Le Témoin Immobile</span>
+        <span class="seq-timing">0:00 → 0:15</span>
+      </div>
+      <p>
+        Plan fixe ultra-serré sur le visage. Pas de mouvement de caméra. Juste la lumière qui change subtilement. La peau respire. Lumière froide côté gauche, pénombre à droite. Les pupilles brillent d'une intensité interne. Les veines sont visibles sous l'épiderme translucide. Le cœur bat dans les joues. Le Témoin attend.
+      </p>
+      <p style="margin-bottom:0; font-style:italic; color: var(--text-dim); font-size:0.85rem">
+        Indication de jeu : visage au repos — pas d'expression mais une présence absolue. Les yeux sont vides mais attentifs, comme avant que quelque chose arrive.
+      </p>
+    </div>
+
+    <div class="seq-card" style="border-left-color: var(--diego)">
+      <div class="seq-header">
+        <span class="seq-num">SEQ 2</span>
+        <span class="seq-title-main">La Transmission</span>
+        <span class="seq-timing">0:15 → 0:35</span>
+      </div>
+      <p>
+        Un doigt s'approche du visage. Dès le contact : L'œil <strong>EXPLOSE en 6 fenêtres simultanées</strong> — chaque fenêtre est une ville différente, une galaxie, un paysage. Les fenêtres défilent en cascade, à vitesse accélérée. Les veines du Témoin s'illuminent sous la peau. Le visage rosit. La température monte. La sueur coule. L'air vibre de chaleur.
+      </p>
+      <p style="margin-bottom:0; font-style:italic; color: var(--text-dim); font-size:0.85rem">
+        Mécanique IA : la IA génère les villes/galaxies en cascade — la complexité est gratuite. Chaque frame peut être un lieu différent.
+      </p>
+    </div>
+
+    <div class="seq-card" style="border-left-color: var(--rene)">
+      <div class="seq-header">
+        <span class="seq-num">SEQ 3</span>
+        <span class="seq-title-main">Le Témoin Transformé</span>
+        <span class="seq-timing">0:35 → 0:45</span>
+      </div>
+      <p>
+        Le doigt s'écarte. Le Témoin est recouvert de motifs lumineux — pas sur la peau, <strong>DANS la peau</strong>, comme des veines de lumière qui pulsent. Ces cicatrices = des mémoires reçues. Zoom lent vers l'œil. Les motifs continuent de pulser. Peau brillante d'humidité. Le cœur bat encore. Noir.
+      </p>
+      <p style="margin-bottom:0; font-style:italic; color: var(--text-dim); font-size:0.85rem">
+        Émotion finale : pas d'explosion finale. Juste la transmission qui continue — le Témoin est changé à jamais, et ça pulse encore.
+      </p>
+    </div>
+  </section>
+
+  <!-- DECOUPAGE -->
+  <section id="decoupage" class="section">
+    <div class="section-header">
+      <span class="section-tag tag-sasha">Sasha · Scénariste</span>
+      <h2>Découpage Plan par Plan</h2>
+    </div>
+    <p style="color:var(--text-dim); font-size:0.85rem; margin-bottom:1.5rem">45 secondes · 13 plans</p>
+
+    <h3>Séquence 1 — Le Témoin Immobile (0:00→0:15)</h3>
+    <ul class="plan-list">
+      <li class="plan-item">
+        <span class="plan-num">P1</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:00→0:05 · 5 sec</div>
+          <div class="plan-desc">Ultra-close up sur le visage. Yeux mi-clos. La lumière change très lentement, froide à gauche, ombre à droite. Pas de mouvement. La peau respire — les narines bougent imperceptiblement.</div>
+          <div class="plan-tech">→ Image fixe. 1 image MJ, animer légèrement avec Runway (breath loop).</div>
+        </div>
+      </li>
+      <li class="plan-item">
+        <span class="plan-num">P2</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:05→0:12 · 7 sec</div>
+          <div class="plan-desc">Même cadrage. Les yeux s'ouvrent lentement. Les veines commencent à apparaître sous l'épiderme translucide. La lumière pulse faiblement dans les pupilles — comme un cœur qui bat.</div>
+          <div class="plan-tech">→ Image fixe + animation légère des yeux. Morphing yeux fermés → yeux ouverts.</div>
+        </div>
+      </li>
+      <li class="plan-item">
+        <span class="plan-num">P3</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:12→0:15 · 3 sec</div>
+          <div class="plan-desc">Zoom très lent vers l'œil gauche. Un doigt entre dans le cadre par le bas, à 2cm du visage. Suspension.</div>
+          <div class="plan-tech">→ Zoom numérique sur l'image + layer doigt (plan séparé composé).</div>
+        </div>
+      </li>
+    </ul>
+
+    <h3>Séquence 2 — La Transmission (0:15→0:35)</h3>
+    <ul class="plan-list">
+      <li class="plan-item">
+        <span class="plan-num">P4</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:15→0:16 · 1 sec</div>
+          <div class="plan-desc"><strong>FLASH</strong> — contact du doigt. Blanc pur. L'image disparaît une demi-seconde. Son : impact sourd.</div>
+          <div class="plan-tech">→ Fondu blanc instantané. Pas d'image à générer.</div>
+        </div>
+      </li>
+      <li class="plan-item">
+        <span class="plan-num">P5</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:16→0:20 · 4 sec</div>
+          <div class="plan-desc">L'œil revient — mais maintenant il contient une ville (Paris haussmannien, vue aérienne). La fenêtre est organique, épousant les contours de l'iris. La sueur commence sur le front.</div>
+          <div class="plan-tech">→ 1 image MJ (œil + ville 1). Morphing depuis plan 2.</div>
+        </div>
+      </li>
+      <li class="plan-item">
+        <span class="plan-num">P6</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:20→0:24 · 4 sec</div>
+          <div class="plan-desc">Deux nouvelles villes apparaissent simultanément — fenêtres 2 et 3 dans l'œil et sur la joue. Chaque fenêtre a sa propre rythmique. Tokyo néon + Mumbai foule. Les veines de la joue s'illuminent en rouge-orange.</div>
+          <div class="plan-tech">→ 2 images MJ (villes 2 et 3). Compositage multi-layer.</div>
+        </div>
+      </li>
+      <li class="plan-item">
+        <span class="plan-num">P7</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:24→0:27 · 3 sec</div>
+          <div class="plan-desc"><strong>EXPLOSION</strong> — 6 fenêtres simultanées couvrent tout le visage. Villes + galaxie bleue + forêt tropicale. Les fenêtres défilent à vitesse x2. Le visage rosit fortement.</div>
+          <div class="plan-tech">→ 3 images MJ composées. Vitesse accélérée en montage (x1.5).</div>
+        </div>
+      </li>
+      <li class="plan-item">
+        <span class="plan-num">P8</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:27→0:30 · 3 sec</div>
+          <div class="plan-desc">Ralenti soudain. Le doigt est encore en contact. La sueur coule sur la tempe. Les veines du cou pulsent, visibles, en or liquide. Les fenêtres continuent — mais plus doucement.</div>
+          <div class="plan-tech">→ Image fixe + Runway animation des veines. Effet de ralenti.</div>
+        </div>
+      </li>
+      <li class="plan-item">
+        <span class="plan-num">P9</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:30→0:35 · 5 sec</div>
+          <div class="plan-desc">Pull back très légèrement — on voit maintenant front + yeux + joues. Les fenêtres se fondent dans la peau, deviennent des motifs. Les bords des fenêtres se transforment en veines lumineuses.</div>
+          <div class="plan-tech">→ 1 image MJ (transition fenêtres → motifs). Morphing progressif.</div>
+        </div>
+      </li>
+    </ul>
+
+    <h3>Séquence 3 — Le Témoin Transformé (0:35→0:45)</h3>
+    <ul class="plan-list">
+      <li class="plan-item">
+        <span class="plan-num">P10</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:35→0:37 · 2 sec</div>
+          <div class="plan-desc">Le doigt s'écarte lentement. Les motifs restent. Ils pulsent, plus lentement. Le contact est rompu mais la transmission est complète.</div>
+          <div class="plan-tech">→ Layer doigt qui disparaît. Image du visage transformé reste.</div>
+        </div>
+      </li>
+      <li class="plan-item">
+        <span class="plan-num">P11</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:37→0:40 · 3 sec</div>
+          <div class="plan-desc">Plan légèrement plus large. Tout le visage couvert de motifs lumineux qui pulsent en rythme — comme si le cœur du Témoin battait maintenant à travers toute sa peau.</div>
+          <div class="plan-tech">→ 1 image MJ (visage transformé complet). Runway pulse loop.</div>
+        </div>
+      </li>
+      <li class="plan-item">
+        <span class="plan-num">P12</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:40→0:43 · 3 sec</div>
+          <div class="plan-desc">Zoom très lent vers l'œil droit. À l'intérieur de l'œil — une ville, encore, mais petite, lointaine. Comme si les mémoires continuaient d'arriver.</div>
+          <div class="plan-tech">→ Zoom numérique. Compositage discret.</div>
+        </div>
+      </li>
+      <li class="plan-item">
+        <span class="plan-num">P13</span>
+        <div class="plan-content">
+          <div class="plan-timing">0:43→0:45 · 2 sec</div>
+          <div class="plan-desc">Fondu au noir. Les motifs disparaissent en dernier.</div>
+          <div class="plan-tech">→ Fondu numérique. Post-production.</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="card" style="margin-top:2rem">
+      <p class="card-title">Notes de montage</p>
+      <p><strong>Rythme :</strong> SEQ1 lente → SEQ2 accélérée → SEQ2 ralentie → SEQ3 lente</p>
+      <p><strong>Sons suggérés :</strong> Battement cardiaque (P1-2) · Impact (P4) · Flux urbain en cascade (P5-8) · Pulse organique (P11-13)</p>
+      <p style="margin-bottom:0"><strong>Consistance Témoin :</strong> Générer d'abord P1/P2 (base), utiliser comme référence pour tous les autres plans avec <code style="background:var(--code-bg); padding: 0.1rem 0.3rem; border-radius:2px; font-size:0.8rem">same character as [ref_image]</code></p>
+    </div>
+  </section>
+
+  <!-- DA -->
+  <section id="da" class="section">
+    <div class="section-header">
+      <span class="section-tag tag-diego">Diego · Directeur Artistique</span>
+      <h2>Direction Artistique</h2>
+    </div>
+
+    <h3>Palette — Physiologique & Vécue</h3>
+    <div class="palette">
+      <div class="swatch-wrap">
+        <div class="swatch" style="background: #f5ede0;"></div>
+        <div class="swatch-label">Blanc chaud vivant</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background: #c9a96e;"></div>
+        <div class="swatch-label">Or liquide</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background: #c45c3a;"></div>
+        <div class="swatch-label">Rouge-orange</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background: #2a4a5a;"></div>
+        <div class="swatch-label">Turquoise sombre</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background: #b8b8c8;"></div>
+        <div class="swatch-label">Gris perle</div>
+      </div>
+    </div>
+    <p style="font-size:0.82rem; color:var(--text-dim); margin-top:0.5rem"><em>Principe : chaque couleur correspond à une sensation physiologique réelle.</em></p>
+
+    <h3>6 Axes Visuels</h3>
+    <div class="axes-grid">
+      <div class="axis-card">
+        <div class="axis-num">01</div>
+        <div class="axis-name">Cascade-Villes</div>
+        <div class="axis-desc">Les villes tombent comme l'eau. Fluidité absolue, pas de montage cut. Chaque ville est une goutte de temps.</div>
+      </div>
+      <div class="axis-card">
+        <div class="axis-num">02</div>
+        <div class="axis-name">Fenêtres-Fluides</div>
+        <div class="axis-desc">Les bords des fenêtres coulent comme verre fondu. L'œil est un organe vivant qui s'ouvre et s'élargit.</div>
+      </div>
+      <div class="axis-card">
+        <div class="axis-num">03</div>
+        <div class="axis-name">Électrique-Organique</div>
+        <div class="axis-desc">Blanc chaud vivant, pas de bleu néon technique. Flamme organique qui pulse comme un cœur.</div>
+      </div>
+      <div class="axis-card">
+        <div class="axis-num">04</div>
+        <div class="axis-name">Traînées-Mémoire</div>
+        <div class="axis-desc">Chaque ville laisse une trace organique visible qui s'estompe lentement.</div>
+      </div>
+      <div class="axis-card">
+        <div class="axis-num">05</div>
+        <div class="axis-name">Gravité-Inversée</div>
+        <div class="axis-desc">Les fenêtres s'étirent vers le doigt. La main crée une gravité sans contact.</div>
+      </div>
+      <div class="axis-card">
+        <div class="axis-num">06</div>
+        <div class="axis-name">Pulsion-Visuelle</div>
+        <div class="axis-desc">Les motifs pulsent en rythme avec le son. Le visage devient un organe vivant qui bat.</div>
+      </div>
+    </div>
+
+    <h3>Format Technique</h3>
+    <div class="card">
+      <p><strong>Ratio :</strong> 16:9</p>
+      <p><strong>Grain :</strong> 16mm organique — texture palpable, PAS de 4K lisse</p>
+      <p style="margin-bottom:0"><strong>Lumière :</strong> Naturelle très latérale, fins de journée. Pas de lumières de studio. LUT recommandé : Film Emulation (Kodak 5218 ou équivalent).</p>
+    </div>
+
+    <h3>Références Cinéma</h3>
+    <div class="refs-list">
+      <span class="ref-tag">Béla Tarr — plans fixes, lumière naturelle, corps vivant</span>
+      <span class="ref-tag">Wim Wenders — voyages, lumière dorée, peau qui respire</span>
+      <span class="ref-tag">Enter the Void — flux visuels, perspective subjective</span>
+      <span class="ref-tag">Annihilation — fenêtres dans les yeux, transformations organiques</span>
+      <span class="ref-tag">Blade Runner 2049 — couleurs organiques, atmosphères immersives</span>
+    </div>
+  </section>
+
+  <!-- PROMPTS -->
+  <section id="prompts" class="section">
+    <div class="section-header">
+      <span class="section-tag tag-diego">Diego · Directeur Artistique</span>
+      <h2>Prompts MidJourney</h2>
+    </div>
+
+    <p style="color:var(--text-dim); font-size:0.85rem; margin-bottom:2rem">3 alternatives par plan clé. Si l'une ne fonctionne pas, tentez la suivante. Cliquez sur <strong>Copier</strong> pour copier le prompt.</p>
+
+    <div class="prompt-block">
+      <h3>Plan 1–2 — Le Témoin (BASE — générer en premier)</h3>
+      <p style="font-size:0.82rem; color:var(--text-dim); margin-bottom:1rem">Ce plan sert de référence pour TOUS les autres. Générez plusieurs variantes et choisissez votre Témoin.</p>
+      <div class="prompt-variants">
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt A</span>
+            <span class="variant-badge">Recommandé</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Ultra-close up androgynous face, light blue eyes, pearl grey translucent skin, visible veins under skin, warm white internal light in pupils, golden hour light from left, shadow from right, organic 16mm grain, cinematic portrait, skin breathes, no expression but full presence --ar 16:9 --style raw --v 6 --s 500</code>
+        </div>
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt B</span>
+            <span class="variant-badge">Plus dramatique</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Extreme close up androgynous human face, aqua blue eyes, pale grey skin with visible subcutaneous veins, cool rim light, warm fill light, 16mm film grain, clinical yet organic, translucent skin quality, physiological realism, cinematic --ar 16:9 --style raw --v 6 --s 750</code>
+        </div>
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt C</span>
+            <span class="variant-badge">Plus mystérieux</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Ultra close portrait androgynous being, silver-grey skin, light eyes with inner luminescence, veins visible like rivers under skin, dusk light, film noir grain, breathing texture, timeless face --ar 16:9 --style raw --v 6</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="prompt-block">
+      <h3>Plan 5 — L'Œil + Ville 1 (Paris)</h3>
+      <div class="prompt-variants">
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt A</span>
+            <span class="variant-badge">Recommandé</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Close up eye containing a miniature aerial view of Paris haussmann, eye as living window to a city, organic iris boundary not rectangular, translucent skin context, liquid gold veins, warm white light, 16mm grain --ar 16:9 --style raw --v 6 --s 500</code>
+        </div>
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt B</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Human eye transformed into city portal, Paris rooftops seen through iris, organic membrane boundary, golden amber tones, anatomical and surreal, skin texture visible around eye, impossible cinema --ar 16:9 --style raw --v 6 --s 250</code>
+        </div>
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt C</span>
+            <span class="variant-badge">Alternatif Tokyo</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Close up eye containing Tokyo at night, neon lights refracted in iris, eye as a window to another world, organic skin around, warm and cold color contrast, cinematic surrealism, 16mm grain --ar 16:9 --style raw --v 6</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="prompt-block">
+      <h3>Plan 7 — Explosion 6 Fenêtres</h3>
+      <div class="prompt-variants">
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt A</span>
+            <span class="variant-badge">Recommandé</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Close up face covered in 6 organic windows showing different cities simultaneously, Paris Tokyo Mumbai galaxy forest, windows shaped like flowing glass not rectangles, face flushed warm, explosive energy without sadness, golden veins illuminated under skin, electric-organic, 16mm grain --ar 16:9 --style raw --v 6 --s 250</code>
+        </div>
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt B</span>
+            <span class="variant-badge">Plus abstrait</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Human face as living city map, multiple realities visible simultaneously through skin as translucent windows, impossible cinema, impossible scale, cinematic energy, warm skin tones, liquid gold accents --ar 16:9 --style raw --v 6 --s 500</code>
+        </div>
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt C</span>
+            <span class="variant-badge">Focus galaxie</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Androgynous face with eyes showing a galaxy and earth from space simultaneously, six organic windows of different scales visible on face, gold-white energy coursing through visible veins, breath visible, explosive vitality, no melancholy --ar 16:9 --style raw --v 6</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="prompt-block">
+      <h3>Plan 11 — Le Témoin Transformé (fin)</h3>
+      <div class="prompt-variants">
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt A</span>
+            <span class="variant-badge">Recommandé</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Close up face with luminous patterns pulsing IN the skin like veins, same androgynous character, patterns are bioluminescent under translucent skin, pearl grey skin now warm rose, moisture on skin, gold-white inner light, patterns pulse like heartbeat, 16mm grain, cinematic still --ar 16:9 --style raw --v 6 --s 750</code>
+        </div>
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt B</span>
+            <span class="variant-badge">Plus intense</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Human face transformed by light from within, subcutaneous luminous veins forming patterns across entire face, same character consistent, skin translucent and warm, organic pulsing light not neon, lived-in skin texture, moisture and warmth --ar 16:9 --style raw --v 6 --s 500</code>
+        </div>
+        <div class="prompt-variant">
+          <div class="prompt-variant-header">
+            <span class="variant-label">Prompt C</span>
+            <span class="variant-badge">Plus minimaliste</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copier</button>
+          </div>
+          <code class="prompt-text">Androgynous face, subtle luminous trace patterns under skin like memory scars, quiet power, skin warm and alive, light from within, cinematic stillness, 16mm grain --ar 16:9 --style raw --v 6</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:2rem">
+      <p class="card-title">Tips — Consistance du Témoin</p>
+      <p>Après avoir choisi votre image de référence (Plan 1-2) :</p>
+      <ul style="padding-left:1.25rem; color:var(--text);">
+        <li style="margin-bottom:0.4rem">Dans MJ : utilisez <code style="background:var(--code-bg); padding:0.1rem 0.3rem; border-radius:2px;">/blend</code> avec votre image de référence + un nouveau prompt</li>
+        <li style="margin-bottom:0.4rem">Ou ajoutez l'URL de votre image au début du prompt : <code style="background:var(--code-bg); padding:0.1rem 0.3rem; border-radius:2px;">[URL_IMAGE] Ultra-close up same character, [nouveau contexte]...</code></li>
+        <li>Gardez toujours : <code style="background:var(--code-bg); padding:0.1rem 0.3rem; border-radius:2px;">pearl grey skin, light blue eyes, androgynous, 16mm grain, --style raw</code></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- REALISATION -->
+  <section id="realisation" class="section">
+    <div class="section-header">
+      <span class="section-tag tag-rene">René · Réalisateur</span>
+      <h2>Directives de Réalisation</h2>
+    </div>
+
+    <div class="card">
+      <p class="card-title">Vision globale</p>
+      <p>Ce film est une <strong>expérience sensorielle</strong>, pas une démonstration technique. Le spectateur doit SENTIR le contact avant de le voir. L'objectif : que le public oublie que c'est généré par IA pendant les 30 premières secondes — et que ça devienne évident et assumé dans la séquence 2, sans que ça brise l'émotion.</p>
+      <p style="margin-bottom:0"><strong>Ton :</strong> Intense, silencieux, organique. Pas de kitsch. Pas d'effets pour les effets.</p>
+    </div>
+
+    <h3>Par Séquence</h3>
+
+    <div class="seq-card" style="border-left-color: var(--rene);">
+      <h4>Séquence 1 — L'Installation</h4>
+      <ul style="padding-left:1.25rem; color:var(--text); font-size:0.88rem; line-height:1.8">
+        <li>Durée subjective : cette séquence doit sembler plus longue qu'elle n'est. C'est la respiration avant le plongeon.</li>
+        <li>Son : silence — avec juste le battement cardiaque très bas dans le mix. On le sent plus qu'on ne l'entend.</li>
+        <li>Lumière : ne jamais saturer. La lumière froide vient de la gauche, elle est directionnelle. L'ombre à droite est profonde. Pas de fill light artificiel.</li>
+        <li><strong>Erreur à éviter :</strong> Ne pas mettre de musique ici. Le silence est le tempo.</li>
+      </ul>
+    </div>
+
+    <div class="seq-card" style="border-left-color: var(--diego);">
+      <h4>Séquence 2 — La Transmission</h4>
+      <ul style="padding-left:1.25rem; color:var(--text); font-size:0.88rem; line-height:1.8">
+        <li>Le flash de contact (plan 4) : ce blanc doit durer exactement <strong>12-15 frames</strong>. Pas plus.</li>
+        <li>Rythme des fenêtres : accélération progressive — P5-6 lents (4 sec), P7-8 rapides (3 sec), P9 ralentit.</li>
+        <li>Le Témoin reste toujours visible : les villes ne cachent jamais complètement le visage.</li>
+        <li>Son : les villes ont chacune leur texture sonore. Vers le plan 8 : tout se fond dans une fréquence grave et pure.</li>
+        <li><strong>Erreur à éviter :</strong> Pas de flou artistique ou de glow. Tout doit rester net, précis, organique.</li>
+      </ul>
+    </div>
+
+    <div class="seq-card" style="border-left-color: var(--sasha);">
+      <h4>Séquence 3 — La Résonance</h4>
+      <ul style="padding-left:1.25rem; color:var(--text); font-size:0.88rem; line-height:1.8">
+        <li>Revenir à la lenteur de la séquence 1 — mais le Témoin a changé.</li>
+        <li>Le doigt qui s'écarte : pas de cut brutal. Le doigt disparaît hors-champ. On ne le suit pas.</li>
+        <li>Fondu au noir : long — <strong>2 secondes minimum</strong>. Les motifs lumineux doivent être les derniers éléments visibles.</li>
+        <li>Son : retour au battement cardiaque. Puis silence. Puis, optionnel : une note tenue très basse (drone).</li>
+      </ul>
+    </div>
+
+    <h3>Montage — Principes</h3>
+    <div class="card">
+      <p><strong>Coupes :</strong> Ce film peut fonctionner avec zéro cut (tout en morphing) ou avec des coupes nettes sur les plans courts. Les deux fonctionnent — mais choisissez un style et tenez-vous-y.</p>
+      <p><strong>Transitions :</strong> Morphing ou fondu enchaîné. Pas de wipe, pas de transition "IA type". Le film doit avoir une continuité organique.</p>
+      <p><strong>Durée des plans :</strong> Respectez le découpage. Si un plan génère quelque chose de fort, résistez à l'envie de le faire durer plus longtemps — la durée crée le rythme.</p>
+      <p><strong>Couleur :</strong> Désaturer légèrement SEQ1 (gris froid) → monter progressivement la chaleur en SEQ2 → tons dorés-roses en SEQ3. LUT Film Emulation (Kodak 5218).</p>
+      <p style="margin-bottom:0"><strong>Si le Témoin n'est pas cohérent :</strong> Générez 10-15 variantes du plan 1-2, choisissez la meilleure, utilisez-la comme référence systématique.</p>
+    </div>
+  </section>
+
+  <!-- PRODUCTION -->
+  <section id="production" class="section">
+    <div class="section-header">
+      <span class="section-tag tag-paloma">Paloma · Productrice</span>
+      <h2>Production & Faisabilité</h2>
+    </div>
+
+    <div class="card" style="border-left: 3px solid var(--rene); background: rgba(126,212,166,0.05);">
+      <p class="card-title">Verdict</p>
+      <p style="font-size:1.1rem; color: var(--rene); margin-bottom:0.5rem">✅ Faisabilité 50h JAM : <strong>OUI</strong></p>
+      <p style="margin-bottom:0; font-size:0.88rem; color:var(--text-dim)">Complexité élevée mais cohérente. La direction est unifiée — 3 séquences bien définies avec des prompts structurés.</p>
+    </div>
+
+    <h3>Outils recommandés</h3>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-name">MidJourney v6</div>
+        <div class="tool-usage">Images fixes · Toutes les séquences</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Runway Gen-3</div>
+        <div class="tool-usage">Séquences animées · Morphing</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Kling AI</div>
+        <div class="tool-usage">Alternative à Runway pour animations</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">DaVinci Resolve</div>
+        <div class="tool-usage">Montage · Étalonnage</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Suno</div>
+        <div class="tool-usage">Musique · Texture sonore</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">ElevenLabs</div>
+        <div class="tool-usage">Voix off (si nécessaire)</div>
+      </div>
+    </div>
+
+    <h3>Points de vigilance</h3>
+    <div class="feasibility-grid">
+      <div class="feas-item">
+        <div class="feas-check">⚠️</div>
+        <div class="feas-label">La consistance du TÉMOIN entre les séquences demande des itérations sur le prompt (ajouter <code style="font-size:0.75rem">same character as [ref]</code>)</div>
+      </div>
+      <div class="feas-item">
+        <div class="feas-check">⚠️</div>
+        <div class="feas-label">Les villes en cascade (SEQ2) nécessitent du montage ou de la génération vidéo (Gen-3, Runway, Pika)</div>
+      </div>
+      <div class="feas-item">
+        <div class="feas-check">💡</div>
+        <div class="feas-label">Le grain 16mm peut être ajouté en post si le modèle génère du 4K lisse — pas un bloquant</div>
+      </div>
+      <div class="feas-item">
+        <div class="feas-check">💡</div>
+        <div class="feas-label">Générer le Témoin en premier et valider avant de produire les autres plans — économise du temps d'itération</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALIDATIONS -->
+  <section id="validations" class="section">
+    <div class="section-header">
+      <span class="section-tag tag-equipe">Équipe</span>
+      <h2>Validations & Timeline</h2>
+    </div>
+
+    <table class="val-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Étape</th>
+          <th>Validé par</th>
+          <th>Date</th>
+          <th>Statut</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Direction hybride (Corps mémoire + Voyageur Immobile)</td>
+          <td>Mathieu</td>
+          <td>2026-03-12</td>
+          <td class="val-ok">✅ Validé</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Contraintes techniques (30-60s, lâchez-vous, perso récurrent)</td>
+          <td>Mathieu</td>
+          <td>2026-03-13</td>
+          <td class="val-ok">✅ Validé</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Scénario complet (Sasha)</td>
+          <td>Mathieu</td>
+          <td>2026-03-15</td>
+          <td class="val-ok">✅ Validé</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Direction Artistique (Diego)</td>
+          <td>Mathieu</td>
+          <td>2026-03-19</td>
+          <td class="val-ok">✅ Validé</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Découpage plan par plan (Sasha) + Prompts MJ détaillés (Diego) + Directives réalisation (René)</td>
+          <td>—</td>
+          <td>2026-03-19</td>
+          <td class="val-ok">✅ Livrés</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Dossier final HTML complet</td>
+          <td>—</td>
+          <td>2026-03-21</td>
+          <td class="val-ok">✅ En ligne</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Images générées (MidJourney)</td>
+          <td>—</td>
+          <td>Avant JAM</td>
+          <td class="val-pending">⏳ À faire</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Montage & livraison finale</td>
+          <td>—</td>
+          <td>4-6 avril</td>
+          <td class="val-pending">⏳ JAM</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>IA Jam 2026 · <em>La Transmission</em> · Dossier de pré-production</p>
+  <p style="margin-top:0.4rem">Équipe : René (Réalisateur) · Sasha (Scénariste) · Diego (DA) · Paloma (Production) · Annarchitecte (Coordination)</p>
+  <p style="margin-top:0.4rem; color: #555">Mis à jour automatiquement par les agents · Dernière compilation : 22 mars 2026</p>
+</footer>
+
+<script>
+  // Copy prompt buttons
+  function copyPrompt(btn) {
+    const code = btn.closest('.prompt-variant').querySelector('.prompt-text');
+    navigator.clipboard.writeText(code.textContent.trim()).then(() => {
+      btn.textContent = 'Copié !';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copier';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Smooth scroll with offset for sticky nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        window.scrollTo({ top: target.offsetTop - 64, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
