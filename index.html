@@ -656,8 +656,9 @@
     <li><a href="#realisation" class="rene">Réalisation</a></li>
     <li><a href="#production" class="paloma">Production</a></li>
     <li><a href="#validations">Validations</a></li>
+    <li><a href="#openviking" style="color:#a78bfa">OpenViking</a></li>
   </ul>
-  <span class="nav-updated">Mis à jour : 22 mars 2026</span>
+  <span class="nav-updated">Mis à jour : 23 mars 2026</span>
 </nav>
 
 <!-- HERO -->
@@ -1327,13 +1328,104 @@
     </table>
   </section>
 
+  <!-- OPENVIKING -->
+  <section id="openviking" class="section">
+    <div class="section-header">
+      <span class="section-tag" style="background:rgba(167,139,250,0.15);color:#a78bfa;border-color:rgba(167,139,250,0.3)">Infrastructure</span>
+      <h2>Architecture OpenViking</h2>
+    </div>
+
+    <p style="color:var(--text-dim);margin-bottom:1.5rem">
+      Système de mémoire hiérarchique implémenté le 23 mars 2026 pour optimiser le chargement de contexte des agents.
+      Réduction estimée : <strong style="color:#a78bfa">−70% de tokens</strong> par cycle.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.2rem">
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#a78bfa;margin-bottom:0.5rem">L0 — Toujours chargé</div>
+        <div style="font-size:0.85rem;color:var(--text)">.abstract</div>
+        <div style="font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem">1-2 phrases · &lt;50 tokens · Systématique</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.2rem">
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#7eb8d4;margin-bottom:0.5rem">L1 — Sur décision</div>
+        <div style="font-size:0.85rem;color:var(--text)">.overview</div>
+        <div style="font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem">300-500 tokens MAX · Chargé si nécessaire</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.2rem">
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#7ed4a6;margin-bottom:0.5rem">L2 — Extraits ciblés</div>
+        <div style="font-size:0.85rem;color:var(--text)">memory.md / details.md</div>
+        <div style="font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem">Jamais entier · head / grep / sed uniquement</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem;color:var(--text-bright);margin-bottom:1rem">Dashboard agents — état L0 actuel</h3>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0.8rem;margin-bottom:2rem">
+      <div style="background:var(--bg2);border:1px solid rgba(126,180,212,0.3);border-radius:8px;padding:1rem">
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--sasha);margin-bottom:0.4rem">✍️ Sasha</div>
+        <div style="font-size:0.82rem;color:var(--text-dim);line-height:1.5">Scénariste. Découpage plan par plan livré (13 plans, timing précis, notes de montage). Phase PRODUCTION — en attente de retours humains.</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(212,126,154,0.3);border-radius:8px;padding:1rem">
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--diego);margin-bottom:0.4rem">🎨 Diego</div>
+        <div style="font-size:0.82rem;color:var(--text-dim);line-height:1.5">Directeur Artistique. DA validée, prompts MidJourney livrés (3 séquences + alternatifs). Seeds créatifs actifs (cycle 14+). Phase PRODUCTION.</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(126,212,166,0.3);border-radius:8px;padding:1rem">
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--rene);margin-bottom:0.4rem">🎬 René</div>
+        <div style="font-size:0.82rem;color:var(--text-dim);line-height:1.5">Réalisateur. Dernier mot créatif. Directives de réalisation livrées. Phase PRODUCTION — surveillance créative active.</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(201,169,110,0.3);border-radius:8px;padding:1rem">
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--paloma);margin-bottom:0.4rem">📋 Paloma</div>
+        <div style="font-size:0.82rem;color:var(--text-dim);line-height:1.5">Productrice. Dossier HTML compilé et en ligne (2026-03-21). Coordination agents. Tend vers métacognition — surveiller l'action concrète.</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem;color:var(--text-bright);margin-bottom:0.8rem">Coups OpenViking — 23 mars 2026</h3>
+    <table class="val-table">
+      <thead>
+        <tr><th>Coup</th><th>Description</th><th>Heure</th><th>Statut</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Audit &amp; Architecture — plan défini</td>
+          <td>2026-03-22</td>
+          <td class="val-ok">✅ Complété</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Structure <code style="font-size:0.8rem;background:var(--bg3);padding:0.1rem 0.3rem;border-radius:3px">memory/context/</code> L0/L1/L2 créée (19 fichiers)</td>
+          <td>05:05 UTC</td>
+          <td class="val-ok">✅ Complété</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Prompts agents optimisés — chargement en couches, anti-cat &gt;80 lignes</td>
+          <td>10:05 UTC</td>
+          <td class="val-ok">✅ Complété</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Auto-évolution — agents mettent à jour leurs .abstract/.overview · MEMORY.md initialisé</td>
+          <td>15:10 UTC</td>
+          <td class="val-ok">✅ Complété</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Page HTML &amp; Observabilité — cette section</td>
+          <td>20:10 UTC</td>
+          <td class="val-ok">✅ Complété</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
 </div>
 
 <!-- FOOTER -->
 <footer>
   <p>IA Jam 2026 · <em>La Transmission</em> · Dossier de pré-production</p>
   <p style="margin-top:0.4rem">Équipe : René (Réalisateur) · Sasha (Scénariste) · Diego (DA) · Paloma (Production) · Annarchitecte (Coordination)</p>
-  <p style="margin-top:0.4rem; color: #555">Mis à jour automatiquement par les agents · Dernière compilation : 22 mars 2026</p>
+  <p style="margin-top:0.4rem; color: #555">Mis à jour automatiquement par les agents · Dernière compilation : 23 mars 2026</p>
 </footer>
 
 <script>
